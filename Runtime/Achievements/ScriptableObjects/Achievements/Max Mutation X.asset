@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384e3a89d30df554484ab8126cf3e2bf, type: 3}
+  m_Name: Max Mutation X
+  m_EditorClassIdentifier: 
+  description: 
+  difficulty: 0
+  icon: {fileID: 0}
+  grayscaleIcon: {fileID: 0}
+  category: {fileID: 11400000, guid: 0f3be0e60a656674089839b1744b07d5, type: 2}
