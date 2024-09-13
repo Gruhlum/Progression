@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-    [CreateAssetMenu(menuName = "HexTecGames/StatData")]
+    [CreateAssetMenu(menuName = "HexTecGames/Progression/StatData")]
     public class StatData : ScriptableObject
 	{
 		

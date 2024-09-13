@@ -18,6 +18,10 @@ namespace HexTecGames.Progression
 
         protected override void DrawItem(Achievement item)
         {
+            if (item == null)
+            {
+                return;
+            }
             int difficultyIndex = (int)item.Data.Difficulty;
             if (borderSprites != null && borderSprites.Count > difficultyIndex)
             {

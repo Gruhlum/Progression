@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-	[CreateAssetMenu(menuName = "HexTecGames/StatAchievementData")]
+	[CreateAssetMenu(menuName = "HexTecGames/Progression/StatAchievementData")]
 	public class StatAchievementData : AchievementData
 	{
         public StatData LinkedStat
