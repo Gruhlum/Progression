@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-    public class AchievmentPopupController : MonoBehaviour
+    public class AchievementPopupController : MonoBehaviour
     {
         [SerializeField] private AchievementManager achievementM = default;
         [SerializeField] private AchievementPopupDisplay popupDisplay = default;
-        [SerializeField] private SteamManager steamManager = default;
+        //[SerializeField] private SteamManager steamManager = default;
         [Space]
         [SerializeField] private AchievementData testAchievement = default;
 
@@ -34,11 +34,11 @@ namespace HexTecGames.Progression
         }
         private void DisplayAchievement(Achievement achievement)
         {
-            if (steamManager != null)
-            {
-                steamManager.UnlockAchievement(achievement.Data.name);
-            }
-            else popupDisplay.DisplayAchievement(achievement);
+            //if (steamManager != null)
+            //{
+            //    steamManager.UnlockAchievement(achievement.Data.name);
+            //}
+            //else popupDisplay.DisplayAchievement(achievement);
         }
         private void AchievementM_OnAchievementCompleted(Achievement achievement)
         {

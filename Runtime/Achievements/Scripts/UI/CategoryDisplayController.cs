@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-	public class CategoryDisplayController : DisplayController<Achievement>
+	public class CategoryDisplayController : DisplayController<AchievementDisplay, Achievement>
 	{
 		[SerializeField] private TMP_Text nameGUI = default;
 		[SerializeField] private bool showName = default;

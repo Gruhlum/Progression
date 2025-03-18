@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace HexTecGames.Progression
 {
-    public class AchievementDisplay : Display<Achievement>
+    public class AchievementDisplay : Display<AchievementDisplay, Achievement>
     {
         [SerializeField] private Image border = default;
         [SerializeField] private Image icon = default;
