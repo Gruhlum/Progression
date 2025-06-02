@@ -1,0 +1,13 @@
+
+TODO:
+
+
+
+
+Achievement
+- Can be displayed with an icon, title and description (maybe data of completion)
+- Fires event when completed
+- Can be saved/loaded
+
+Stat
+- Tracks a value for the session and for the entire game time

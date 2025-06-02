@@ -33,7 +33,7 @@ RectTransform:
   m_Father: {fileID: 5859957182636525571}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.9, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -218,7 +218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7832956104312397045
 RectTransform:
   m_ObjectHideFlags: 0
@@ -236,10 +236,10 @@ RectTransform:
   - {fileID: 6797646872429124141}
   m_Father: {fileID: 6202014507186057273}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -399.19333}
-  m_SizeDelta: {x: 480, y: 141.61334}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2140988434511919487
 MonoBehaviour:
@@ -683,8 +683,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6797646872429124141}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.9, y: 0}
-  m_AnchorMax: {x: 0.9, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 72, y: 72}
   m_Pivot: {x: 1, y: 0.5}
@@ -846,7 +846,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6202014507186057273}
-  - component: {fileID: 2603411903744657001}
   - component: {fileID: 966858012741288265}
   m_Layer: 5
   m_Name: CategoryDisplay
@@ -877,28 +876,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2603411903744657001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7446779388718955972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b33b8037bbf6643864fae5036b96ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displaySpawner:
-    prefab: {fileID: 5009868076562149524, guid: 758bec62d0ea27c4eae0c524816aee39, type: 3}
-    parent: {fileID: 2626461986259403851}
-  displays: []
-  items: []
-  nameGUI: {fileID: 8921794541612068419}
-  showName: 1
-  references:
-    version: 2
-    RefIds: []
 --- !u!114 &966858012741288265
 MonoBehaviour:
   m_ObjectHideFlags: 0
