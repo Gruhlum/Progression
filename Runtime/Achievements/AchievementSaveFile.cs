@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace HexTecGames.Progression
 {
@@ -12,7 +10,7 @@ namespace HexTecGames.Progression
         public AchievementSaveFile(IList<Achievement> achievements)
         {
             saveDatas = new List<AchievementSaveData>();
-            foreach (var achievement in achievements)
+            foreach (Achievement achievement in achievements)
             {
                 saveDatas.Add(new AchievementSaveData(achievement));
             }

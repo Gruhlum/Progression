@@ -1,7 +1,7 @@
 
 TODO:
 
-
+Keep track of which stats have been used for multi / over time upgrade and don't get them again in GetPossibleSpecialStats
 
 
 Achievement

@@ -1,8 +1,7 @@
-using HexTecGames.Basics;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using HexTecGames.Basics;
+using HexTecGames.Progression.Stats;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,8 +9,8 @@ namespace HexTecGames.Progression
 {
     public class StatManager : MonoBehaviour
     {
-        [SerializeField] private AchievementManager achievementsManager = default;
-        [SerializeField] private List<StatType> statDatas = default;
+        [SerializeField] private AchievementManager achievementManager = default;
+        [SerializeField] private StatCollection statDatas = default;
 
         public static ReadOnlyCollection<Stat> Stats
         {
@@ -24,23 +23,29 @@ namespace HexTecGames.Progression
 
         private const string SAVE_FOLDER_NAME = "STATS";
 
-        void Awake()
+
+        private void Reset()
+        {
+            achievementManager = FindObjectOfType<AchievementManager>();
+        }
+        private void Awake()
         {
             LoadData();
         }
-        void OnDestroy()
+        private void OnDestroy()
         {
             SaveData();
         }
-
+#if UNITY_EDITOR
         [MenuItem("Tools/SaveSystem/Reset Stats")]
+#endif
         public static void ClearStats()
         {
             if (Application.isPlaying)
             {
                 StatSaveFile saveFile = new StatSaveFile(null);
                 SaveSystem.SaveJSON(saveFile, SAVE_FOLDER_NAME);
-                foreach (var stat in stats)
+                foreach (Stat stat in stats)
                 {
                     stat.Reset();
                 }
@@ -63,9 +68,9 @@ namespace HexTecGames.Progression
         }
         private void GenerateStats()
         {
-            foreach (var statData in statDatas)
+            foreach (StatType statData in statDatas)
             {
-                stats.Add(new Stat(statData, 0, achievementsManager.GetStatAchievements(statData)));
+                stats.Add(new Stat(statData, 0, achievementManager.GetStatAchievements(statData)));
             }
         }
         private void GenerateStats(StatSaveFile saveFile)
@@ -75,9 +80,9 @@ namespace HexTecGames.Progression
                 GenerateStats();
                 return;
             }
-            foreach (var statData in statDatas)
+            foreach (StatType statData in statDatas)
             {
-                stats.Add(new Stat(statData, saveFile.RetrieveValue(statData), achievementsManager.GetStatAchievements(statData)));
+                stats.Add(new Stat(statData, saveFile.RetrieveValue(statData), achievementManager.GetStatAchievements(statData)));
             }
         }
 
@@ -87,7 +92,7 @@ namespace HexTecGames.Progression
         }
         public static void StartSession()
         {
-            foreach (var stat in stats)
+            foreach (Stat stat in stats)
             {
                 stat.StartSession();
             }

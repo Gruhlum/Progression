@@ -1,14 +1,13 @@
-using HexTecGames.Basics;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using HexTecGames.Basics;
 using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-	[System.Serializable]
-	public class Achievement
-	{
+    [System.Serializable]
+    public class Achievement
+    {
         public AchievementData Data
         {
             get
@@ -57,7 +56,7 @@ namespace HexTecGames.Progression
         {
             SaveSystem.SaveJSON(new AchievementSaveFile(achievements), SAVEFOLDERNAME);
         }
-        public static List<Achievement> LoadAchievements(IList<AchievementData> achievementDatas)
+        public static List<Achievement> LoadAchievements(IEnumerable<AchievementData> achievementDatas)
         {
             AchievementSaveFile saveFile = SaveSystem.LoadJSON<AchievementSaveFile>(SAVEFOLDERNAME);
             if (saveFile == null)
@@ -66,16 +65,16 @@ namespace HexTecGames.Progression
             }
             else return CreateAchievements(saveFile, achievementDatas);
         }
-        private static List<Achievement> CreateAchievements(IList<AchievementData> achievementDatas)
+        private static List<Achievement> CreateAchievements(IEnumerable<AchievementData> achievementDatas)
         {
             List<Achievement> results = new List<Achievement>();
-            foreach (var data in achievementDatas)
+            foreach (AchievementData data in achievementDatas)
             {
                 results.Add(data.CreateAchievement(false));
             }
             return results;
         }
-        private static List<Achievement> CreateAchievements(AchievementSaveFile saveFile, IList<AchievementData> achievementDatas)
+        private static List<Achievement> CreateAchievements(AchievementSaveFile saveFile, IEnumerable<AchievementData> achievementDatas)
         {
             if (saveFile == null)
             {
@@ -84,7 +83,7 @@ namespace HexTecGames.Progression
 
             List<Achievement> results = new List<Achievement>();
 
-            foreach (var data in achievementDatas)
+            foreach (AchievementData data in achievementDatas)
             {
                 results.Add(data.CreateAchievement(saveFile.GetAchievementStatus(data)));
             }

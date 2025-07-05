@@ -1,13 +1,11 @@
 using HexTecGames.Basics;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-	[CreateAssetMenu(menuName = "HexTecGames/Progression/StatAchievementData")]
-	public class StatAchievementData : AchievementData
-	{
+    [CreateAssetMenu(menuName = "HexTecGames/Progression/StatAchievementData")]
+    public class StatAchievementData : AchievementData
+    {
         public StatType LinkedStat
         {
             get
@@ -36,7 +34,7 @@ namespace HexTecGames.Progression
 
         [SerializeField, ReadOnly] private string actualDescription = default;
 
-        void OnValidate()
+        private void OnValidate()
         {
             actualDescription = Description.Replace("#", TargetValue.ToString());
         }

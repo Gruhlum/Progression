@@ -1,14 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-	[System.Serializable]
-	public class CategoryCollection<T>
-	{
-		public Category category;
-		public List<T> items;
+    [System.Serializable]
+    public class CategoryCollection<T>
+    {
+        public Category category;
+        public List<T> items;
 
         public CategoryCollection(Category category)
         {

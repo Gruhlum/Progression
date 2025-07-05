@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace HexTecGames.Progression
 {
@@ -15,8 +13,8 @@ namespace HexTecGames.Progression
             {
                 return;
             }
-            
-            foreach (var stat in stats)
+
+            foreach (Stat stat in stats)
             {
                 datas.Add(new StatSaveData(stat));
             }

@@ -1,9 +1,7 @@
-using HexTecGames.Basics;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using HexTecGames.Basics;
 using UnityEditor;
 using UnityEngine;
 
@@ -42,13 +40,14 @@ namespace HexTecGames.Progression
         {
             SaveAchievements();
         }
-
+#if UNITY_EDITOR
         [MenuItem("Tools/SaveSystem/Reset Achievements")]
+#endif
         public static void ClearAchievements()
         {
             if (Application.isPlaying)
             {
-                foreach (var achievement in achievements)
+                foreach (Achievement achievement in achievements)
                 {
                     achievement.Reset();
                 }
@@ -62,7 +61,7 @@ namespace HexTecGames.Progression
         {
             List<StatAchievement> results = new List<StatAchievement>();
 
-            foreach (var achievement in achievements)
+            foreach (Achievement achievement in achievements)
             {
                 if (achievement is StatAchievement statAchievement && statAchievement.AchievementData.LinkedStat == statData)
                 {
@@ -85,7 +84,7 @@ namespace HexTecGames.Progression
         }
         public static void CompleteAchievement(string name)
         {
-            var achievement = achievements.Find(x => x.Data.name == name);
+            Achievement achievement = achievements.Find(x => x.Data.name == name);
             if (achievement == null)
             {
                 Debug.Log("Could not find achievement with name: " + name);
@@ -113,7 +112,7 @@ namespace HexTecGames.Progression
         }
         private void CreateAchievements()
         {
-            foreach (var data in achievementDatas)
+            foreach (AchievementData data in achievementDatas)
             {
                 AddAchievement(data.CreateAchievement(false));
             }
@@ -125,7 +124,7 @@ namespace HexTecGames.Progression
                 CreateAchievements();
                 return;
             }
-            foreach (var data in achievementDatas)
+            foreach (AchievementData data in achievementDatas)
             {
                 AddAchievement(data.CreateAchievement(saveFile.GetAchievementStatus(data)));
             }

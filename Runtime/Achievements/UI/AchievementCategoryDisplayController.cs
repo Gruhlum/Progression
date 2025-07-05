@@ -1,22 +1,20 @@
-using HexTecGames.Basics;
-using HexTecGames.Basics.UI;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HexTecGames.Basics;
 using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-	public class AchievementCategoryDisplayController : MonoBehaviour
-	{
+    public class AchievementCategoryDisplayController : MonoBehaviour
+    {
         private List<Achievement> achievements;
 
         [SerializeField] private AchievementCollection achievementCollection = default;
         [SerializeField] private Spawner<CategoryDisplayController> categorySpawner = default;
 
-        void Awake()
+        private void Awake()
         {
-            SetItems(Achievement.LoadAchievements(achievementCollection.Items));
+            SetItems(Achievement.LoadAchievements(achievementCollection.GetItems()));
         }
 
         public void SetItems(IList<Achievement> achievements)
@@ -27,9 +25,9 @@ namespace HexTecGames.Progression
 
         protected void DisplayItems()
         {
-            var results = GetCategories(achievements);
+            List<CategoryCollection<Achievement>> results = GetCategories(achievements);
 
-            foreach (var result in results)
+            foreach (CategoryCollection<Achievement> result in results)
             {
                 categorySpawner.Spawn().SetItems(result);
             }
@@ -38,7 +36,7 @@ namespace HexTecGames.Progression
         {
             List<CategoryCollection<Achievement>> results = new List<CategoryCollection<Achievement>>();
 
-            foreach (var achievement in achievements)
+            foreach (Achievement achievement in achievements)
             {
                 if (results.Any(x => x.category == achievement.Data.Category))
                 {
