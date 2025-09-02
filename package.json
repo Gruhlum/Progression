@@ -13,5 +13,6 @@
       "description": "Basic example",
       "path": "Samples~/Example 1"
     }
-  ]
+  ],
+  "hideInEditor": false
 }
