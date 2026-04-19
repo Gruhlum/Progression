@@ -8,7 +8,7 @@ namespace HexTecGames.Progression
 
         public StatSaveData(Stat stat)
         {
-            name = stat.StatData.name;
+            name = stat.StatType.name;
             value = stat.Value;
         }
     }

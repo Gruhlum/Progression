@@ -48,8 +48,8 @@ namespace HexTecGames.Progression
 
         private void DisplayAchievement(Achievement achievement)
         {
-            icon.sprite = achievement.Data.Icon;
-            nameGUI.text = achievement.Data.name;
+            //icon.sprite = achievement.Data.Icon;
+            //nameGUI.text = achievement.Data.name;
             gameObject.SetActive(true);
             tweenPlayer.Play();
         }

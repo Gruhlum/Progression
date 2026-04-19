@@ -1,24 +1,20 @@
+using UnityEngine;
+
 namespace HexTecGames.Progression
 {
     [System.Serializable]
     public class StatAchievement : Achievement
     {
-        public StatAchievementData AchievementData
-        {
-            get
-            {
-                return achievementData;
-            }
-            private set
-            {
-                achievementData = value;
-            }
-        }
-        private StatAchievementData achievementData;
+        public Stat Stat { get; set; }
 
-        public StatAchievement(StatAchievementData data, bool completed) : base(data, completed)
+        public StatAchievement(StatType statType, string name, Sprite icon, bool completed) : base(name, icon, completed)
         {
-            AchievementData = data;
+            var stat = StatManager.FindStat(statType);
+            if (stat != null)
+            {
+                this.Stat = stat;
+            }
+            else Debug.LogError($"Could not find Stat of type: {statType}");
         }
     }
 }

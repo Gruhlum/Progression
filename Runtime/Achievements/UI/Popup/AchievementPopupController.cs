@@ -27,7 +27,7 @@ namespace HexTecGames.Progression
                 Debug.Log("No test achievement referenced!");
                 return;
             }
-            DisplayAchievement(new Achievement(testAchievement, true));
+            DisplayAchievement(new Achievement("Test Achievement", null, true));
         }
         private void DisplayAchievement(Achievement achievement)
         {

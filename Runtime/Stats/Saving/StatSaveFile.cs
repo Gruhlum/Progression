@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace HexTecGames.Progression
 {
@@ -16,12 +18,18 @@ namespace HexTecGames.Progression
 
             foreach (Stat stat in stats)
             {
-                datas.Add(new StatSaveData(stat));
+                var result = datas.Find(x => x.name == stat.StatType.name);
+
+                if (result != null)
+                {
+                    result.value = stat.Value;
+                }
+                else datas.Add(new StatSaveData(stat));
             }
         }
-        public double RetrieveValue(StatType data, double defaultValue = 0)
+        public double RetrieveValue(StatType statType, double defaultValue = 0)
         {
-            StatSaveData saveData = datas.Find(x => x.name == data.name);
+            StatSaveData saveData = datas.Find(x => x.name == statType.name);
             if (saveData != null)
             {
                 return saveData.value;

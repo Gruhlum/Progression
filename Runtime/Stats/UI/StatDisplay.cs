@@ -13,7 +13,7 @@ namespace HexTecGames.Progression
 
         protected override void DrawItem(Stat stat)
         {
-            nameGUI.text = stat.StatData.name;
+            nameGUI.text = stat.StatType.name;
             UpdateValueText(stat);
         }
 

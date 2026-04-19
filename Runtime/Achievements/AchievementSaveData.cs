@@ -8,7 +8,7 @@ namespace HexTecGames.Progression
 
         public AchievementSaveData(Achievement achievement)
         {
-            name = achievement.Data.name;
+            //name = achievement.Data.name;
             completed = achievement.Completed;
         }
     }

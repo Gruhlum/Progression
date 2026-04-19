@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HexTecGames.Basics;
+using HexTecGames.Progression.Achievements.UI;
 using UnityEditor;
 using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-    public class AchievementManager : MonoBehaviour
+    public class AchievementManager : AdvancedBehaviour
     {
         //[SerializeField] private StatsManager statsManager = default;
-        [SerializeField] private AchievementCollection achievementDatas = default;
+        [SerializeField] private AchievementDisplayController displayController = default;
+        [SerializeField] private List<AchievementGroup> categoryDatas = default;
 
         public static ReadOnlyCollection<Achievement> Achievements
         {
@@ -28,10 +30,7 @@ namespace HexTecGames.Progression
 
         private static bool achievementsLoaded;
 
-        private void Reset()
-        {
-            //statsManager = FindObjectOfType<StatsManager>();
-        }
+
         private void Awake()
         {
             LoadAchievements();
@@ -40,6 +39,13 @@ namespace HexTecGames.Progression
         {
             SaveAchievements();
         }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetStatics()
+        {
+            achievements.Clear();
+        }
+
 #if UNITY_EDITOR
         [MenuItem("Tools/SaveSystem/Reset Achievements")]
 #endif
@@ -63,10 +69,10 @@ namespace HexTecGames.Progression
 
             foreach (Achievement achievement in achievements)
             {
-                if (achievement is StatAchievement statAchievement && statAchievement.AchievementData.LinkedStat == statData)
-                {
-                    results.Add(statAchievement);
-                }
+                //if (achievement is StatAchievement statAchievement && statAchievement.AchievementData.LinkedStat == statData)
+                //{
+                //    results.Add(statAchievement);
+                //}
             }
 
             return results;
@@ -75,22 +81,22 @@ namespace HexTecGames.Progression
         {
             if (achievement.Completed)
             {
-                Debug.Log("Achievement " + achievement.Data.name + " already unlocked");
+                //Debug.Log("Achievement " + achievement.Data.name + " already unlocked");
                 return;
             }
-            Debug.Log("Unlocking achievement " + achievement.Data.name);
+           // Debug.Log("Unlocking achievement " + achievement.Data.name);
             achievement.Complete();
             SaveAchievements();
         }
         public static void CompleteAchievement(string name)
         {
-            Achievement achievement = achievements.Find(x => x.Data.name == name);
-            if (achievement == null)
-            {
-                Debug.Log("Could not find achievement with name: " + name);
-                return;
-            }
-            else CompleteAchievement(achievement);
+            //Achievement achievement = achievements.Find(x => x.Data.name == name);
+            //if (achievement == null)
+            //{
+            //    Debug.Log("Could not find achievement with name: " + name);
+            //    return;
+            //}
+            //else CompleteAchievement(achievement);
         }
         public static void SaveAchievements()
         {
@@ -112,9 +118,12 @@ namespace HexTecGames.Progression
         }
         private void CreateAchievements()
         {
-            foreach (AchievementData data in achievementDatas)
+            foreach (var category in categoryDatas)
             {
-                AddAchievement(data.CreateAchievement(false));
+                foreach (var data in category.Datas)
+                {
+                    AddAchievements(data.CreateAchievements(false));
+                }
             }
         }
         private void CreateAchievements(AchievementSaveFile saveFile)
@@ -124,9 +133,19 @@ namespace HexTecGames.Progression
                 CreateAchievements();
                 return;
             }
-            foreach (AchievementData data in achievementDatas)
+            foreach (var category in categoryDatas)
             {
-                AddAchievement(data.CreateAchievement(saveFile.GetAchievementStatus(data)));
+                foreach (var data in category.Datas)
+                {
+                    AddAchievements(data.CreateAchievements(saveFile.GetAchievementStatus(data)));
+                }
+            }
+        }
+        private static void AddAchievements(List<Achievement> achievements)
+        {
+            foreach (var achievement in achievements)
+            {
+                AddAchievement(achievement);
             }
         }
         private static void AddAchievement(Achievement achievement)

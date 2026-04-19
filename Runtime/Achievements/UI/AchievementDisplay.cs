@@ -22,9 +22,8 @@ namespace HexTecGames.Progression
             {
                 return;
             }
-            int difficultyIndex = (int)item.Data.Difficulty;
-            nameGUI.text = item.Data.name;
-            icon.sprite = item.Data.Icon;
+            nameGUI.text = item.Name;
+            icon.sprite = item.Icon;
             UpdateBorderColor();
         }
 

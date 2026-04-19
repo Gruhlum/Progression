@@ -4,7 +4,7 @@ namespace HexTecGames.Progression.Stats.UI
 {
     public class StatDisplayController : DisplayController<StatDisplay, Stat>
     {
-        private void Start()
+        private void OnEnable()
         {
             SetItems(StatManager.Stats);
         }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5009868076562149524}
   - component: {fileID: 2351056136498103207}
   - component: {fileID: 8506515058830308069}
+  - component: {fileID: 5878106017406392491}
   m_Layer: 5
   m_Name: AchievementDisplay
   m_TagString: Untagged
@@ -38,8 +39,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 250, y: 250}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &5009868076562149524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,7 +56,8 @@ MonoBehaviour:
   border: {fileID: 5542990551850171689}
   icon: {fileID: 5697811095010321011}
   nameGUI: {fileID: 4919752123808784448}
-  borderSprites: []
+  uncompletedColor: {r: 0, g: 0, b: 0, a: 1}
+  completedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &2351056136498103207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,6 +92,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4724066193434715818}
   m_CullTransparentMesh: 1
+--- !u!114 &5878106017406392491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724066193434715818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 250
+  m_PreferredHeight: 200
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &4835387532529088872
 GameObject:
   m_ObjectHideFlags: 0
