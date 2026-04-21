@@ -65,7 +65,7 @@ namespace HexTecGames.Progression
             });
         }
 
-        public override List<Achievement> CreateAchievements(bool completed)
+        public override List<Achievement> CreateAchievements(AchievementSaveFile saveFile)
         {
             var results = new List<Achievement>();
             var stat = StatManager.FindStat(linkedStatType);
@@ -74,10 +74,18 @@ namespace HexTecGames.Progression
                 Debug.LogError($"Could not find stat {linkedStatType}");
                 return results;
             }
+            int count = 0;
             foreach (var data in stepDatas)
             {
-
-                results.Add(new StatAchievement(linkedStatType, name, data.icon, stat.Value >= data.targetValue));
+                string achievementName = $"{name}_{count}";
+                count++;
+                string actualDescription = FormatWithPlural(Description, data.targetValue);
+                bool completed = false;
+                if (saveFile != null)
+                {
+                    completed = saveFile.GetAchievementStatus(achievementName);
+                }
+                results.Add(new StatAchievement(linkedStatType, achievementName, actualDescription, data.icon, completed));
             }
             return results;
         }

@@ -15,9 +15,9 @@ namespace HexTecGames.Progression
                 saveDatas.Add(new AchievementSaveData(achievement));
             }
         }
-        public bool GetAchievementStatus(AchievementData data)
+        public bool GetAchievementStatus(string id)
         {
-            AchievementSaveData saveData = saveDatas.Find(x => x.name == data.name);
+            AchievementSaveData saveData = saveDatas.Find(x => x.name == id);
             if (saveData == null)
             {
                 return false;

@@ -5,6 +5,6 @@ namespace HexTecGames.Progression
 {
     public abstract class AchievementData : ScriptableObject
     {
-        public abstract List<Achievement> CreateAchievements(bool completed);
+        public abstract List<Achievement> CreateAchievements(AchievementSaveFile saveFile);
     }
 }

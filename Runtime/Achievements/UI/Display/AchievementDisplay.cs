@@ -22,7 +22,7 @@ namespace HexTecGames.Progression
             {
                 return;
             }
-            nameGUI.text = item.Name;
+            nameGUI.text = item.Description;
             icon.sprite = item.Icon;
             UpdateBorderColor();
         }

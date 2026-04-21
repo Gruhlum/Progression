@@ -7,6 +7,7 @@ namespace HexTecGames.Progression.Achievements.UI
     {
         private void OnEnable()
         {
+            Debug.Log(AchievementManager.Achievements.Count);
             SetItems(AchievementManager.Achievements);
         }
     }

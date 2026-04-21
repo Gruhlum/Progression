@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using HexTecGames.Basics;
 using HexTecGames.Progression.Achievements.UI;
 using UnityEditor;
@@ -12,7 +13,7 @@ namespace HexTecGames.Progression
     {
         //[SerializeField] private StatsManager statsManager = default;
         [SerializeField] private AchievementDisplayController displayController = default;
-        [SerializeField] private List<AchievementGroup> categoryDatas = default;
+        [SerializeField] private List<NamedGroup<AchievementData>> categoryDatas = default;
 
         public static ReadOnlyCollection<Achievement> Achievements
         {
@@ -44,6 +45,9 @@ namespace HexTecGames.Progression
         private static void ResetStatics()
         {
             achievements.Clear();
+            achievementsLoaded = false;
+            OnReset = null;
+            OnAchievementCompleted = null;
         }
 
 #if UNITY_EDITOR
@@ -62,21 +66,7 @@ namespace HexTecGames.Progression
             }
             else SaveSystem.DeleteFile(SAVE_FOLDER_NAME);
         }
-
-        public List<StatAchievement> GetStatAchievements(StatType statData)
-        {
-            List<StatAchievement> results = new List<StatAchievement>();
-
-            foreach (Achievement achievement in achievements)
-            {
-                //if (achievement is StatAchievement statAchievement && statAchievement.AchievementData.LinkedStat == statData)
-                //{
-                //    results.Add(statAchievement);
-                //}
-            }
-
-            return results;
-        }
+        
         public static void CompleteAchievement(Achievement achievement)
         {
             if (achievement.Completed)
@@ -108,38 +98,23 @@ namespace HexTecGames.Progression
             {
                 return;
             }
+            Debug.Log("Loading Achievements ...");
             achievementsLoaded = true;
-            AchievementSaveFile saveFile = SaveSystem.LoadJSON<AchievementSaveFile>(SAVE_FOLDER_NAME);
-            if (saveFile == null)
-            {
-                CreateAchievements();
-            }
-            else CreateAchievements(saveFile);
+            var saveFile = SaveSystem.LoadJSON<AchievementSaveFile>(SAVE_FOLDER_NAME);
+            Debug.Log($"... Save file: {saveFile != null} ...");
+            CreateAchievements();
         }
-        private void CreateAchievements()
+
+        private void CreateAchievements(AchievementSaveFile saveFile = null)
         {
             foreach (var category in categoryDatas)
             {
                 foreach (var data in category.Datas)
                 {
-                    AddAchievements(data.CreateAchievements(false));
+                    AddAchievements(data.CreateAchievements(saveFile));
                 }
             }
-        }
-        private void CreateAchievements(AchievementSaveFile saveFile)
-        {
-            if (saveFile == null)
-            {
-                CreateAchievements();
-                return;
-            }
-            foreach (var category in categoryDatas)
-            {
-                foreach (var data in category.Datas)
-                {
-                    AddAchievements(data.CreateAchievements(saveFile.GetAchievementStatus(data)));
-                }
-            }
+            Debug.Log($"... Added {Achievements.Count} achievements from {categoryDatas.Count} categories and {categoryDatas.Sum(x => x.Datas.Count)} AchievementDatas");
         }
         private static void AddAchievements(List<Achievement> achievements)
         {

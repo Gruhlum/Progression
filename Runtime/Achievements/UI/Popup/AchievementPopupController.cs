@@ -1,12 +1,13 @@
+using HexTecGames.Basics;
 using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-    public class AchievementPopupController : MonoBehaviour
+    public class AchievementPopupController : AdvancedBehaviour
     {
         [SerializeField] private AchievementPopupDisplay popupDisplay = default;
         //[SerializeField] private SteamManager steamManager = default;
-        [Space]
+        [Header("Debug")]
         [SerializeField] private AchievementData testAchievement = default;
 
         private void Awake()
@@ -27,7 +28,10 @@ namespace HexTecGames.Progression
                 Debug.Log("No test achievement referenced!");
                 return;
             }
-            DisplayAchievement(new Achievement("Test Achievement", null, true));
+            for (int i = 0; i < 3; i++)
+            {
+                DisplayAchievement(new Achievement("Test", "Test Description", null, true));
+            }
         }
         private void DisplayAchievement(Achievement achievement)
         {
