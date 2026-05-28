@@ -69,39 +69,21 @@ namespace HexTecGames.Progression
         private void LoadData()
         {
             StatSaveFile saveFile = SaveSystem.LoadJSON<StatSaveFile>(SAVE_FOLDER_NAME);
-            if (saveFile == null)
-            {
-                GenerateStats();
-            }
-            else GenerateStats(saveFile);
+            GenerateStats(saveFile);
         }
         public void SaveData()
         {
             StatSaveFile saveFile = new StatSaveFile(stats);
             SaveSystem.SaveJSON(saveFile, SAVE_FOLDER_NAME);
         }
-        private void GenerateStats()
+
+        private void GenerateStats(StatSaveFile saveFile = null)
         {
             foreach (var statData in statGroups)
             {
                 foreach (var data in statData.Datas)
                 {
-                    stats.Add(new Stat(data, 0));
-                }
-            }
-        }
-        private void GenerateStats(StatSaveFile saveFile)
-        {
-            if (saveFile == null)
-            {
-                GenerateStats();
-                return;
-            }
-            foreach (var statData in statGroups)
-            {
-                foreach (var data in statData.Datas)
-                {
-                    stats.Add(new Stat(data, saveFile.RetrieveValue(data)));
+                    stats.Add(new Stat(data, saveFile == null ? 0 : saveFile.RetrieveValue(data)));
                 }
             }
         }

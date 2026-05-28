@@ -3,20 +3,21 @@ using UnityEngine;
 
 namespace HexTecGames.Progression
 {
-    [CreateAssetMenu(menuName = "HexTecGames/Progression/ConditionAchievementData")]
-    public class ConditionAchievementData : AchievementData
+    [CreateAssetMenu(menuName = "HexTecGames/Progression/ConditionalAchievementData")]
+    public class ConditionalAchievementData : AchievementData
     {
         [TextArea] public string description;
-        public Sprite icon;
+        public Sprite Icon;
+        public Sprite incompletedIcon;
 
-        public override List<Achievement> CreateAchievements(AchievementSaveFile saveFile)
+        public override Achievement CreateAchievement(AchievementSaveFile saveFile)
         {
             bool completed = false;
             if (saveFile != null)
             {
                 completed = saveFile.GetAchievementStatus(name);
             }
-            return new List<Achievement>() { new Achievement(name, description,  icon, completed) };
+            return new ConditionalAchievement(this, completed);
         }
     }
 }

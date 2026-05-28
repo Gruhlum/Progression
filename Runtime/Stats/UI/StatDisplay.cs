@@ -32,7 +32,7 @@ namespace HexTecGames.Progression
             }
         }
 
-        private void Stat_OnValueChanged(double value)
+        private void Stat_OnValueChanged(int value)
         {
             UpdateValueText(Item);
         }

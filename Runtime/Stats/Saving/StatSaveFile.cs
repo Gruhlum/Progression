@@ -27,7 +27,7 @@ namespace HexTecGames.Progression
                 else datas.Add(new StatSaveData(stat));
             }
         }
-        public double RetrieveValue(StatType statType, double defaultValue = 0)
+        public int RetrieveValue(StatType statType, int defaultValue = 0)
         {
             StatSaveData saveData = datas.Find(x => x.name == statType.name);
             if (saveData != null)

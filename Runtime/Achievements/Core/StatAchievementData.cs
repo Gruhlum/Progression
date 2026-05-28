@@ -17,15 +17,11 @@ namespace HexTecGames.Progression
             {
                 return description;
             }
-            private set
-            {
-                description = value;
-            }
         }
         [SerializeField, TextArea] private string description;
 
-        [SerializeField, ReadOnly] private string singularDescription = default;
-        [SerializeField, ReadOnly] private string pluralDescription = default;
+        //[SerializeField, ReadOnly] private string singularDescription = default;
+        //[SerializeField, ReadOnly] private string pluralDescription = default;
 
         public StatType LinkedStat
         {
@@ -45,11 +41,11 @@ namespace HexTecGames.Progression
 
 
 
-        private void OnValidate()
-        {
-            singularDescription = FormatWithPlural(Description, 1);
-            pluralDescription = FormatWithPlural(Description, 10);
-        }
+        //private void OnValidate()
+        //{
+        //    singularDescription = FormatWithPlural(Description, 1);
+        //    pluralDescription = FormatWithPlural(Description, 10);
+        //}
 
         public static string FormatWithPlural(string template, int value)
         {
@@ -65,29 +61,26 @@ namespace HexTecGames.Progression
             });
         }
 
-        public override List<Achievement> CreateAchievements(AchievementSaveFile saveFile)
+        public override Achievement CreateAchievement(AchievementSaveFile saveFile)
         {
-            var results = new List<Achievement>();
-            var stat = StatManager.FindStat(linkedStatType);
-            if (stat == null)
-            {
-                Debug.LogError($"Could not find stat {linkedStatType}");
-                return results;
-            }
-            int count = 0;
-            foreach (var data in stepDatas)
-            {
-                string achievementName = $"{name}_{count}";
-                count++;
-                string actualDescription = FormatWithPlural(Description, data.targetValue);
-                bool completed = false;
-                if (saveFile != null)
-                {
-                    completed = saveFile.GetAchievementStatus(achievementName);
-                }
-                results.Add(new StatAchievement(linkedStatType, achievementName, actualDescription, data.icon, completed));
-            }
-            return results;
+            return new StatAchievement(this, false);
+            //if (stat == null)
+            //{
+            //    Debug.LogError($"Could not find stat {linkedStatType}");
+            //    return results;
+            //}
+            //foreach (var data in stepDatas)
+            //{
+            //    string achievementName = $"{name} {data.targetValue}";
+            //    string actualDescription = FormatWithPlural(Description, data.targetValue);
+            //    bool completed = false;
+            //    if (saveFile != null)
+            //    {
+            //        completed = saveFile.GetAchievementStatus(achievementName);
+            //    }
+            //    results.Add(new StatAchievement(linkedStatType, achievementName, actualDescription, data.targetValue, data.icon, data.incompleteIcon, completed));
+            //}
+            //return results;
         }
     }
 }

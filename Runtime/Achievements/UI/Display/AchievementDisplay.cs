@@ -1,55 +1,71 @@
-using HexTecGames.Basics.UI;
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using HexTecGames.Basics;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using HexTecGames.Basics.UI;
+using static HexTecGames.Progression.Enums;
 
-namespace HexTecGames.Progression
+namespace HexTecGames.Progression.Achievements.UI.Display
 {
-    public class AchievementDisplay : Display<AchievementDisplay, Achievement>
+    public abstract class AchievementDisplay<D, T> : Display<D, T> where T : Achievement where D : AchievementDisplay<D, T> 
     {
-        [SerializeField] private Image border = default;
-        [SerializeField] private Image icon = default;
+        [SerializeField] protected Image border = default;
+        [SerializeField] protected Image icon = default;
 
-        [SerializeField] private TMP_Text nameGUI = default;
+        [SerializeField] protected TMP_Text descriptionGUI = default;
+
         [Space]
-        [SerializeField] private Color uncompletedColor = Color.black;
-        [SerializeField] private Color completedColor = Color.yellow;
+        [SerializeField] private CompletionStyle completionStyle = default;
+        [Space]
+        [DrawIf(nameof(completionStyle), CompletionStyle.Color), SerializeField] private Color incompletedColor = Color.black;
+        [DrawIf(nameof(completionStyle), CompletionStyle.Color), SerializeField] private Color completedColor = Color.yellow;
 
 
-        protected override void DrawItem(Achievement item)
+        protected virtual void OnEnable()
         {
-            if (item == null)
+            if (Item != null)
             {
-                return;
+                SetCompletionState(Item.Completed);
             }
-            nameGUI.text = item.Description;
+        }
+
+        protected override void DrawItem(T item)
+        {
+            descriptionGUI.text = item.Description;
             icon.sprite = item.Icon;
-            UpdateBorderColor();
+            SetCompletionState(item.Completed);
         }
-
-        private void UpdateBorderColor()
-        {
-            if (Item == null)
-            {
-                return;
-            }
-            border.color = Item.Completed ? completedColor : uncompletedColor;
-        }
-
-        protected override void AddEvents(Achievement achievement)
+        protected override void AddEvents(T achievement)
         {
             base.AddEvents(achievement);
             achievement.OnCompleted += Achievement_OnCompleted;
         }
 
-        protected override void RemoveEvents(Achievement achievement)
+        protected override void RemoveEvents(T achievement)
         {
             base.RemoveEvents(achievement);
             achievement.OnCompleted -= Achievement_OnCompleted;
         }
-        private void Achievement_OnCompleted(Achievement achievement)
+        protected virtual void Achievement_OnCompleted(Achievement achievement)
         {
-            UpdateBorderColor();
+            SetCompletionState(true);
+        }
+        private void SetCompletionState(bool isComplete)
+        {
+            if (Item == null)
+            {
+                return;
+            }
+            if (completionStyle == CompletionStyle.Color)
+            {
+                border.color = isComplete ? completedColor : incompletedColor;
+            }
+            else if (completionStyle == CompletionStyle.Icon)
+            {
+                icon.sprite = isComplete ? Item.Icon : Item.IncompletedIcon;
+            }
         }
     }
 }

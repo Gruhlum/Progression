@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef39e8616e72fe24d9ab4a5180a78ae1, type: 3}
+  m_Name: Time
+  m_EditorClassIdentifier: 
+  description: Spend Time
+  linkedStatType: {fileID: 11400000, guid: ec379f78ef072c84489ef8b28f65a414, type: 2}
+  stepDatas:
+  - targetValue: 1
+    valueDivider: 1
+    unitName: Second
+    icon: {fileID: 21300000, guid: 2f320cf44dd026f4c987d92e217ef8f5, type: 3}
+    incompleteIcon: {fileID: 0}
+  - targetValue: 30
+    valueDivider: 1
+    unitName: Seconds
+    icon: {fileID: 21300000, guid: 2f320cf44dd026f4c987d92e217ef8f5, type: 3}
+    incompleteIcon: {fileID: 0}
+  - targetValue: 60
+    valueDivider: 60
+    unitName: Minute
+    icon: {fileID: 21300000, guid: 2f320cf44dd026f4c987d92e217ef8f5, type: 3}
+    incompleteIcon: {fileID: 0}
+  - targetValue: 180
+    valueDivider: 60
+    unitName: Minutes
+    icon: {fileID: 21300000, guid: 2f320cf44dd026f4c987d92e217ef8f5, type: 3}
+    incompleteIcon: {fileID: 0}

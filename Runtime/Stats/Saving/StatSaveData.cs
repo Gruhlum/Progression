@@ -4,7 +4,7 @@ namespace HexTecGames.Progression
     public class StatSaveData
     {
         public string name;
-        public double value;
+        public int value;
 
         public StatSaveData(Stat stat)
         {

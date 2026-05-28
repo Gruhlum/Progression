@@ -1,4 +1,4 @@
-using HexTecGames.Basics;
+﻿using HexTecGames.Basics;
 using UnityEngine;
 
 namespace HexTecGames.Progression
@@ -20,29 +20,25 @@ namespace HexTecGames.Progression
             AchievementManager.OnAchievementCompleted -= OnAchievementCompleted;
         }
 
-        [ContextMenu("Show Test Achievement")]
-        public void ShowTestAchievement()
-        {
-            if (testAchievement == null)
-            {
-                Debug.Log("No test achievement referenced!");
-                return;
-            }
-            for (int i = 0; i < 3; i++)
-            {
-                DisplayAchievement(new Achievement("Test", "Test Description", null, true));
-            }
-        }
+        //[ContextMenu("Show Test Achievement")]
+        //public void ShowTestAchievement()
+        //{
+        //    if (testAchievement == null)
+        //    {
+        //        Debug.Log("No test achievement referenced!");
+        //        return;
+        //    }
+        //    for (int i = 0; i < 3; i++)
+        //    {
+        //        DisplayAchievement(new ConditionalAchievement("Test", "Test Description", null, null, true));
+        //    }
+        //}
         private void DisplayAchievement(Achievement achievement)
         {
-            //if (steamManager != null)
-            //{
-            //    steamManager.UnlockAchievement(achievement.Data.name);
-            //}
             popupDisplay.AddAchievement(achievement);
         }
         private void OnAchievementCompleted(Achievement achievement)
-        {
+        {           
             DisplayAchievement(achievement);
         }
     }

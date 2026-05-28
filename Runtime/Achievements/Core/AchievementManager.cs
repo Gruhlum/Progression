@@ -12,7 +12,6 @@ namespace HexTecGames.Progression
     public class AchievementManager : AdvancedBehaviour
     {
         //[SerializeField] private StatsManager statsManager = default;
-        [SerializeField] private AchievementDisplayController displayController = default;
         [SerializeField] private List<NamedGroup<AchievementData>> categoryDatas = default;
 
         public static ReadOnlyCollection<Achievement> Achievements
@@ -23,6 +22,8 @@ namespace HexTecGames.Progression
             }
         }
         private static List<Achievement> achievements = new List<Achievement>();
+
+        private static List<ConditionalAchievement> conditionalAchievements;
 
         private const string SAVE_FOLDER_NAME = "ACHIEVEMENTS";
 
@@ -67,27 +68,11 @@ namespace HexTecGames.Progression
             else SaveSystem.DeleteFile(SAVE_FOLDER_NAME);
         }
         
-        public static void CompleteAchievement(Achievement achievement)
+        public static Achievement FindAchievement(ConditionalAchievementData data)
         {
-            if (achievement.Completed)
-            {
-                //Debug.Log("Achievement " + achievement.Data.name + " already unlocked");
-                return;
-            }
-           // Debug.Log("Unlocking achievement " + achievement.Data.name);
-            achievement.Complete();
-            SaveAchievements();
+            return conditionalAchievements.Find(x => x.Data == data);
         }
-        public static void CompleteAchievement(string name)
-        {
-            //Achievement achievement = achievements.Find(x => x.Data.name == name);
-            //if (achievement == null)
-            //{
-            //    Debug.Log("Could not find achievement with name: " + name);
-            //    return;
-            //}
-            //else CompleteAchievement(achievement);
-        }
+
         public static void SaveAchievements()
         {
             SaveSystem.SaveJSON(new AchievementSaveFile(achievements), SAVE_FOLDER_NAME);
@@ -102,7 +87,7 @@ namespace HexTecGames.Progression
             achievementsLoaded = true;
             var saveFile = SaveSystem.LoadJSON<AchievementSaveFile>(SAVE_FOLDER_NAME);
             Debug.Log($"... Save file: {saveFile != null} ...");
-            CreateAchievements();
+            CreateAchievements(saveFile);
         }
 
         private void CreateAchievements(AchievementSaveFile saveFile = null)
@@ -111,10 +96,11 @@ namespace HexTecGames.Progression
             {
                 foreach (var data in category.Datas)
                 {
-                    AddAchievements(data.CreateAchievements(saveFile));
+                    AddAchievement(data.CreateAchievement(saveFile));
                 }
             }
             Debug.Log($"... Added {Achievements.Count} achievements from {categoryDatas.Count} categories and {categoryDatas.Sum(x => x.Datas.Count)} AchievementDatas");
+            conditionalAchievements = achievements.OfType<ConditionalAchievement>().ToList();
         }
         private static void AddAchievements(List<Achievement> achievements)
         {

@@ -20,7 +20,7 @@ namespace HexTecGames.Progression
         }
         [SerializeField] private StatType statType;
 
-        public double Value
+        public int Value
         {
             get
             {
@@ -36,9 +36,9 @@ namespace HexTecGames.Progression
                 OnValueChanged?.Invoke(Value);
             }
         }
-        private double value;
+        private int value;
 
-        public double SessionValue
+        public int SessionValue
         {
             get
             {
@@ -49,18 +49,18 @@ namespace HexTecGames.Progression
                 sessionValue = value;
             }
         }
-        private double sessionValue;
+        private int sessionValue;
 
-        public event Action<double> OnValueChanged;
+        public event Action<int> OnValueChanged;
 
 
-        public Stat(StatType statData, double value)
+        public Stat(StatType statData, int value)
         {
             this.StatType = statData;
             this.Value = value;
         }
 
-        public void IncreaseValue(double value)
+        public void IncreaseValue(int value)
         {
             if (value < 0)
             {
@@ -89,6 +89,11 @@ namespace HexTecGames.Progression
         {
             Value = 0;
             StartSession();
+        }
+
+        public override string ToString()
+        {
+            return $"{StatType} {Value}";
         }
     }
 }
