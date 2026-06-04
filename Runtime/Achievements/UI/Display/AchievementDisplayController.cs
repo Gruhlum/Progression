@@ -36,30 +36,41 @@ namespace HexTecGames
 
         public void DisplayAchievements(IEnumerable<Achievement> achievements)
         {
+            int position = 0;
             foreach (var achievement in achievements)
             {
                 if (achievement is ConditionalAchievement conditionalAchievement)
                 {
-                    conditionalAchievementDisplaySpawner.Spawn(false).SetItem(conditionalAchievement);
+                    var display = conditionalAchievementDisplaySpawner.Spawn(false);
+                    display.transform.SetSiblingIndex(position);
+                    display.SetItem(conditionalAchievement);
+                    position++;
                 }
-                if (achievement is StatAchievement statAchievement)
+                else if (achievement is StatAchievement statAchievement)
                 {
                     foreach (var completedStepData in statAchievement.GetCompletedStepDatas())
                     {
-                        SpawnVirtualAchievement(statAchievement, completedStepData.targetValue, completedStepData.targetValue);
+                        SpawnVirtualAchievement(statAchievement, position, completedStepData.targetValue, completedStepData.targetValue);
+                        position++;
                     }
                     if (!statAchievement.Completed)
                     {
-                        statAchievementDisplaySpawner.Spawn(false).SetItem(statAchievement);
+                        var display = statAchievementDisplaySpawner.Spawn(false);
+                        display.transform.SetSiblingIndex(position);
+                        display.SetItem(statAchievement);
+                        position++;
                     }
                 }
+               
             }
         }
 
-        private void SpawnVirtualAchievement(StatAchievement statAchievement, int currentValue, int targetValue)
+        private void SpawnVirtualAchievement(StatAchievement statAchievement, int position, int currentValue, int targetValue)
         {
             VirtualAchievement virtualAchievement = new VirtualAchievement(statAchievement, currentValue, targetValue);
-            statAchievementDisplaySpawner.Spawn(false).SetItem(virtualAchievement);
+            var display = statAchievementDisplaySpawner.Spawn(false);
+            display.transform.SetSiblingIndex(position);
+            display.SetItem(virtualAchievement);
         }
     }
 }
